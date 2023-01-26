@@ -1,6 +1,7 @@
 #--- identifies this is yml file
 ---
 name: Checks
+# trigger
 on: [push]
 #jobs to run
 jobs:
