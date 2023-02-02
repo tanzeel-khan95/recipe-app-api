@@ -2,7 +2,7 @@
 ---
 name: Checks
 # trigger
-on: [push]
+on: [push, pull_request]
 #jobs to run
 jobs:
   #  defining new job to check PR title format
