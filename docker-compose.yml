@@ -1,14 +1,46 @@
+# Define version of Docker Compose file syntax
 version: "3.9"
 
+# Define services to be run in the environment
 services:
+  # Define the app service
   app:
+    # Build the app service using the Dockerfile in the current directory
     build:
       context: .
+      # Pass the build argument DEV=true to the Dockerfile
       args:
         - DEV=true
+    # Map the host port 8000 to the container port 8000
     ports:
       - "8000:8000"
+    # Mount the local directory './app' as a volume in the container at '/app'
     volumes:
       - ./app:/app
+    # Run the command 'sh -c "python manage.py runserver 0.0.0.0:8000"' in the container
     command: >
       sh -c "python manage.py runserver 0.0.0.0:8000"
+    environment:
+      - DB_HOST=db
+      - DB_NAME=devdb
+      - DB_USER=devuser
+      - DB_PASS=changeme
+    depends_on:
+      - db
+
+  # Define the db service
+  db:
+    # Use the postgres:13-alpine image as the base for the service
+    image: postgres:13-alpine
+    # Mount the named volume 'dev-db-data' at '/var/lib/postgresql/data' in the container
+    volumes:
+      - dev-db-data:/var/lib/postgresql/data
+    # Set the following environment variables in the container:
+    environment:
+      - POSTGRES_DB=devdb
+      - POSTGRES_USER=devuser
+      - POSTGRES_PASSWORD=changeme
+
+  # Define named volumes
+volumes:
+  dev-db-data:
