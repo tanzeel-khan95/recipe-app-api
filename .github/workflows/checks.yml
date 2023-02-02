@@ -1,29 +1,25 @@
-#--- identifies this is yml file
----
 name: Checks
-# trigger
-on: [push, pull_request]
-#jobs to run
+'on':
+  - push
+  - pull_request
 jobs:
-  #  defining new job to check PR title format
   check-pr-title:
     name: Check PR Title Format
-      runs-on: ubuntu-20.04
-      steps:
-        - name: Check PR Title Format
-          run: |
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Check PR Title Format
+        run: |
           # Get the Pull Request (PR) title
-            title=$(jq '.pull_request.title' "$GITHUB_EVENT_PATH")
-            
-            # Define the expected format of the PR title
-            expected_format="Section [0-9]+: .*"
-            
-            # Check if the PR title matches the expected format
-            if ! [[ $title =~ $expected_format ]]; then
-              echo "PR title must be in the format 'Section [number]: [description]'"'
-              exit 1
-            fi
-  #  defining new job
+          title=$(jq '.pull_request.title' "$GITHUB_EVENT_PATH")
+
+          # Define the expected format of the PR title
+          expected_format="Section [0-9]+: .*"
+
+          # Check if the PR title matches the expected format
+          if ! [[ $title =~ $expected_format ]]; then
+            echo "PR title must be in the format 'Section [number]: [description]'"
+            exit 1
+          fi
   test-lint:
     name: Test and Lint
     runs-on: ubuntu-20.04
@@ -31,8 +27,8 @@ jobs:
       - name: Login to Docker Hub
         uses: docker/login-action@v1
         with:
-          username: ${{ secrets.DOCKERHUB_USER }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
+          username: '${{ secrets.DOCKERHUB_USER }}'
+          password: '${{ secrets.DOCKERHUB_TOKEN }}'
       - name: Checkout
         uses: actions/checkout@v2
       - name: Test
