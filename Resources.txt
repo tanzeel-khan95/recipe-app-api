@@ -1,0 +1,3 @@
+Usefull links
+
+https://www.psycopg.org/docs/install.html#build-prerequisites
