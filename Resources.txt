@@ -1,0 +1,9 @@
+Usefull links
+
+https://www.psycopg.org/docs/install.html#build-prerequisites
+
+https://docs.djangoproject.com/en/3.2/topics/testing/tools/#django.test.SimpleTestCase
+
+https://docs.python.org/3/library/unittest.mock.html#unittest.mock.Mock.side_effect
+
+https://docs.djangoproject.com/en/3.2/howto/custom-management-commands/
