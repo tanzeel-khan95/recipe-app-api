@@ -1,4 +1,3 @@
-@@ -0,0 +1,34 @@
 """
 Test custom Django management commands.
 """
